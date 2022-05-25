@@ -8,7 +8,8 @@
     margin: 2rem auto;
     position: relative;
     z-index: 2;
-    background-color: rgb(60, 59, 59);
+    background-color: #2f3438;
+    padding: 10px;
 }
 
 .blurBg {
@@ -54,7 +55,7 @@ label textarea,
 input {
     width: 100%;
     max-width: 300px;
-    background-color: gray;
+    background-color: rgb(63, 61, 61);
     border: 1px solid black;
     outline: none;
     border-radius: 5px;
@@ -77,7 +78,7 @@ textarea {
 }
 
 
-button {
+.container button {
     width: 100px;
     border: 2px solid rgb(204, 198, 198);
     border-radius: 6px;
@@ -85,6 +86,12 @@ button {
     font-size: 1.1rem;
     cursor: pointer;
     margin: 10px;
+}
+
+.container button:hover {
+    background-color: rgb(151, 153, 160);
+    color: rgb(25, 23, 23);
+    transition: all 0.3s ease;
 }
 
 .btns {

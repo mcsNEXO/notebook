@@ -1,21 +1,28 @@
-import './Note.css'
+import './Note.css';
+import { useState } from 'react';
 
 export default function Note(props) {
+    const [showDesc, setShowDesc] = useState(false);
+    const toggleDesc = () => {
+        setShowDesc(!showDesc);
+    };
     return (
         <div className="container-note">
             <div className='title-note'>
-                Title
+                {props.title}
             </div>
             <div className='note-line'>
-                <hr className='line'></hr>
-                <button onClick={props.toggleDesc}>
-                    {!props.showDesc ? 'Show Note' : 'Hide Note'}
-                </button>
-                <hr className='line'></hr>
+                <div className='buttons-note'>
+                    <button className='btn-edit'>Edit</button>
+                    <button onClick={toggleDesc} className='btn-desc'>
+                        {!props.showDesc ? 'Show Note' : 'Hide Note'}
+                    </button>
+                    <button className='btn-delete'>Delete</button>
+                </div>
             </div>
-            {props.showDesc ? (<div className='description'>
-                Description:
-                Description
+            {showDesc ? (<div className='description'>
+                <h4>Description:</h4>
+                <div className='descNote'>{props.description}</div>
             </div>) : null}
         </div >
     )
