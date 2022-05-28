@@ -8,6 +8,17 @@
     position: relative;
 }
 
+.err-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    width: 200px;
+    /* transform: translate(50%, 0); */
+    transition: all 3s ease-in;
+    background-color: red;
+}
+
 .title {
     margin: 1rem auto .6rem auto;
     font-size: x-large;
