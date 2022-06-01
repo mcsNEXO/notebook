@@ -11,7 +11,7 @@ const NoteSchema = new Schema({
     description: {
         type: String,
         required: [true, 'The field is required!'],
-        trim: true,
+        // trim: true,
     }
 });
 const Note = mongoose.model('Note', NoteSchema);

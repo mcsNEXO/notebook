@@ -53,6 +53,7 @@ export default function Notes(props) {
         catch (e) {
             const x = e.response.data.message.split('title: ')[1];
             setError(x)
+            console.log(x)
             setTimeout(() => {
                 setError(false)
             }, 4000)
@@ -80,12 +81,6 @@ export default function Notes(props) {
     }
     return (
         <>
-            {error ?
-                (<div className='err-container'>
-                    <Notifications error={error} />
-                </div>
-                ) : null
-            }
             {
                 showEditModal ? (
                     <div className='position'>
@@ -94,7 +89,8 @@ export default function Notes(props) {
                             description={editNoteState.description}
                             _id={editNoteState._id}
                             onEdit={editNote}
-                            toggleEditModal={toggleEditModal} />
+                            toggleEditModal={toggleEditModal}
+                            error={error} />
                     </div>) : null
             }
 
@@ -104,6 +100,7 @@ export default function Notes(props) {
                         <Modal
                             onAdd={note => addNote(note)}
                             onCloseModal={toggleModal}
+                            error={error}
                         />
                     </div>) :
                     <button onClick={toggleModal} className='add-note'>Add Note</button>

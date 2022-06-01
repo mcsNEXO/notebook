@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import style from './EditModal.module.css';
+import { validate } from '../validation/validations'
 
 export default function Modal(props) {
     const [title, setTitle] = useState(props.title);
     const [desc, setDesc] = useState(props.description);
+    const [errorsTitle, setErrorsTitle] = useState()
+    const [errorsDesc, setErrorsDesc] = useState()
 
-    const titleHandler = (e) => {
-        const newTitle = e.target.value;
-        setTitle(newTitle);
-    };
-
-    const descHandler = (e) => {
-        const newDesc = e.target.value
-        setDesc(newDesc)
+    const setValueHandler = (val, name) => {
+        let rule = ['required'];
+        if (name === 'title') {
+            rule.push({ rule: 'min', length: 3 })
+            const value = val.target.value
+            const { error } = validate(rule, value);
+            if (error) setErrorsTitle(error)
+            return setTitle(val.target.value)
+        }
+        else if (name === 'description') {
+            rule.push({ rule: 'min', length: 5 })
+            const value = val.target.value
+            const { error } = validate(rule, value);
+            if (error) setErrorsDesc(error)
+            return setDesc(value)
+        }
     };
 
     const editModal = () => {
@@ -31,20 +42,27 @@ export default function Modal(props) {
                 <h3>Edit Note</h3>
                 <label>
                     <span>Title: </span>
-                    <input type='text'
-                        name="title"
-                        onChange={titleHandler}
-                        value={title}
-                    />
+                    <div className={style.lbl}>
+                        <input type='text'
+                            name="title"
+                            onChange={val => setValueHandler(val, 'title')}
+                            value={title}
+                            className={props.error ? style.errorTrue : ''}
+                        />
+                        {errorsTitle ? <div className={style.error}>{errorsTitle}</div> : null}
+                    </div>
                 </label>
                 <label>
                     <span>Descritpion: </span>
-                    <textarea
-                        type='text'
-                        name="description"
-                        onChange={descHandler}
-                        value={desc}
-                    ></textarea>
+                    <div className={style.lbl}>
+                        <textarea
+                            type='text'
+                            name="description"
+                            onChange={val => setValueHandler(val, 'description')}
+                            value={desc}
+                        ></textarea>
+                        {errorsDesc ? <div className={style.error}>{errorsDesc}</div> : null}
+                    </div>
                 </label>
                 <div className={style.btn}>
                     <div className={style.btns}>

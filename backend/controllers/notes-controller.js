@@ -41,8 +41,9 @@ class NoteController {
             note.description = description
             await note.save()
             res.status(201).json(note)
-        } catch (e) {
-            return res.status(422).json({ res });
+        }
+        catch (e) {
+            return res.status(422).json({ message: e.message });
         }
     }
 };

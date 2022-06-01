@@ -38,6 +38,7 @@ export default function Modal(props) {
                         onChange={titleHandler}
                         value={title}
                     />
+                    {props.error ? (<div>tak</div>) : null}
                 </label>
                 <label>
                     <span>Descritpion: </span>
