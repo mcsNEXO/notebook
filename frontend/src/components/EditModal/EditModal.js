@@ -5,24 +5,27 @@ import { validate } from '../validation/validations'
 export default function Modal(props) {
     const [title, setTitle] = useState(props.title);
     const [desc, setDesc] = useState(props.description);
-    const [errorsTitle, setErrorsTitle] = useState()
-    const [errorsDesc, setErrorsDesc] = useState()
+    const [errors, setErrors] = useState({
+        title: '',
+        desc: ''
+    })
 
     const setValueHandler = (val, name) => {
-        let rule = ['required'];
-        if (name === 'title') {
-            rule.push({ rule: 'min', length: 3 })
-            const value = val.target.value
-            const { error } = validate(rule, value);
-            if (error) setErrorsTitle(error)
-            return setTitle(val.target.value)
-        }
-        else if (name === 'description') {
-            rule.push({ rule: 'min', length: 5 })
-            const value = val.target.value
-            const { error } = validate(rule, value);
-            if (error) setErrorsDesc(error)
-            return setDesc(value)
+        const value = val.target.value
+        let rule = ['required', { rule: 'min', length: 0 }];;
+        switch (name) {
+            case 'title': {
+                rule[1].length = 3
+                const { error } = validate(rule, value);
+                setErrors({ title: error })
+                return setTitle(value)
+            }
+            case 'description': {
+                rule[1].length = 5
+                const { error } = validate(rule, value);
+                setErrors({ desc: error })
+                return setDesc(value);
+            }
         }
     };
 
@@ -47,9 +50,9 @@ export default function Modal(props) {
                             name="title"
                             onChange={val => setValueHandler(val, 'title')}
                             value={title}
-                            className={props.error ? style.errorTrue : ''}
+                            className={!errors.title ? '' : style.errorBorder}
                         />
-                        {errorsTitle ? <div className={style.error}>{errorsTitle}</div> : null}
+                        {errors.title ? <div className={style.error}>{errors.title}</div> : null}
                     </div>
                 </label>
                 <label>
@@ -60,8 +63,9 @@ export default function Modal(props) {
                             name="description"
                             onChange={val => setValueHandler(val, 'description')}
                             value={desc}
+                            className={!errors.desc ? '' : style.errorBorder}
                         ></textarea>
-                        {errorsDesc ? <div className={style.error}>{errorsDesc}</div> : null}
+                        {errors.desc ? <div className={style.error}>{errors.desc}</div> : null}
                     </div>
                 </label>
                 <div className={style.btn}>

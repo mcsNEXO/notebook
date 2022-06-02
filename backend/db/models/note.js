@@ -6,11 +6,12 @@ const NoteSchema = new Schema({
     title: {
         type: String,
         required: [true, 'The field is required'],
-        minlength: [3, 'The minimum number of characters is 3!'],
+        minlength: [3, 'Min 3 characters!'],
     },
     description: {
         type: String,
-        required: [true, 'The field is required!'],
+        minlength: [5, 'The minimum number of characters is 5!'],
+        required: [true, 'Min 5 characters!'],
         // trim: true,
     }
 });

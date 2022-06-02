@@ -69,10 +69,6 @@ input {
     box-shadow: 0 0 3px 1px red;
 }
 
-.error {
-    color: rgb(199, 32, 32);
-}
-
 .lbl {
     width: 100%;
     max-width: 300px;
@@ -130,4 +126,11 @@ textarea {
 .error {
     width: 100%;
     text-align: center;
+    color: #d91629;
+}
+
+.errorBorder {
+    /* border: 1px solid red; */
+    /* box-shadow: 0 0 5px 2px #dc3545; */
+    border: 2px solid #d91629;
 }

@@ -4,7 +4,6 @@ import Note from './Note/Note';
 import Modal from '../Modal/Modal';
 import EditModal from '../EditModal/EditModal'
 import axios from '../../axios';
-import Notifications from '../Notifcations/Notifications';
 
 export default function Notes(props) {
     const [notes, setNotes] = useState([]);
@@ -25,17 +24,29 @@ export default function Notes(props) {
 
 
     const addNote = async (note) => {
-        const newNotes = [...notes];
-        const res = await axios.post('/notes', note);
-        newNotes.push(res.data);
-        setNotes(newNotes);
+        try {
+            const newNotes = [...notes];
+            const res = await axios.post('/notes', note);
+            newNotes.push(res.data);
+            setNotes(newNotes);
+            toggleModal()
+        } catch (e) {
+            const x = e.response.data.message.split('title: ')[1];
+            setError(x)
+        }
     };
 
 
     const deleteNote = async (id) => {
-        const newNote = [...notes].filter(note => note._id !== id);
-        await axios.delete(`/notes/${id}`);
-        setNotes(newNote);
+        try {
+            if (!window.confirm('Are you sure you want to delete this task?')) return
+            const newNote = [...notes].filter(note => note._id !== id);
+            await axios.delete(`/notes/${id}`);
+            setNotes(newNote);
+        } catch (e) {
+
+        }
+
     };
 
 
@@ -53,10 +64,6 @@ export default function Notes(props) {
         catch (e) {
             const x = e.response.data.message.split('title: ')[1];
             setError(x)
-            console.log(x)
-            setTimeout(() => {
-                setError(false)
-            }, 4000)
         };
     };
 
@@ -75,10 +82,7 @@ export default function Notes(props) {
     const toggleModal = (e) => {
         setShowModal(!showModal);
     };
-    const changeTransform = () => {
-        const x = document.querySelector('.err-container')
-        x.style.transform = 'translate(0,0)'
-    }
+
     return (
         <>
             {

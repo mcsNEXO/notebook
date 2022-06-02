@@ -12,6 +12,30 @@
     padding: 10px;
 }
 
+.lbl {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+    min-height: 2rem;
+    font-size: 0.95rem;
+    color: rgb(209, 212, 214);
+}
+
+.error {
+    width: 100%;
+    text-align: center;
+    color: #d91629;
+}
+
+.errorBorder {
+    border: 2px solid #d91629;
+}
+
+.border {
+    border: 1px solid black;
+    box-shadow: none;
+}
+
 .blurBg {
     width: 100%;
     height: 100%;

@@ -1,9 +1,9 @@
 const avilableRules = {
     required(value) {
-        return value ? ' ' : 'The field required'
+        return value ? '' : 'The field required!'
     },
     min(value, rule) {
-        return value.length >= rule.length ? ' ' : `Min ${rule.length} characters!`;
+        return value.length >= rule.length ? '' : `Min ${rule.length} characters!`;
     },
 }
 
@@ -25,7 +25,7 @@ export function validate(rules = [], value) {
     }
     );
     if (value == '') {
-        error = 'The field required'
+        error = 'The field required!'
     }
     return { error }
 }
